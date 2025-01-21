@@ -1,9 +1,6 @@
 # Project Title
 
-## Index
-
 - [Project Title](#project-title)
-  - [Index](#index)
   - [1. Getting Started](#1-getting-started)
     - [1.1 Prerequisites](#11-prerequisites)
     - [1.2 Installation](#12-installation)

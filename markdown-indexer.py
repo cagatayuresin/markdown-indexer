@@ -98,7 +98,6 @@ def main():
     index_content.append(
         lines[0] + "\n"
     )  # Add the first line (usually a title or H1)")
-    index_content.append("## Index\n\n")
     for idx_line in index_list:
         index_content.append(idx_line + "\n")
 
