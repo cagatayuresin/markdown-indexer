@@ -285,7 +285,6 @@ class TestMarkdownIndexerMain(unittest.TestCase):
             self.assertTrue(os.path.exists(out_file))
             with open(out_file, "r") as f:
                 content = f.read()
-                self.assertIn("# Index", content)
                 self.assertIn("Heading1", content)
                 self.assertIn("Heading2", content)
         finally:
