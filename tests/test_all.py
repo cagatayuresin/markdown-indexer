@@ -5,7 +5,10 @@ import sys
 import os
 
 # Local modules
-from ..src.create_index import create_index
+from src.create_index import create_index
+import src.parse_markdown_headers
+import src.header_numarator
+import src.new_headers
 
 # IMPORTANT: patch must target the same location the code uses "open"
 import src.parse_markdown_headers
