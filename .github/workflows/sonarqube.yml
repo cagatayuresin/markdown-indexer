@@ -25,7 +25,7 @@ jobs:
       - name: Run Tests with Coverage (XML)
         run: |
           # Generate an XML coverage report for SonarQube
-          pytest --cov=src --cov-report=xml --cov-report=term-missing
+          python -m pytest --cov=src --cov-report=xml --cov-report=term-missing
 
       - name: Download Sonar Scanner
         run: |
