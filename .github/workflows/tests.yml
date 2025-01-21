@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install pytest pytest-cov -r requirements.txt
+          pip install -r requirements.txt
 
-      - name: Run Tests with Coverage
+      - name: Run Tests
         run: |
-          python3 pytest --cov=src --cov-report=term-missing
+          python3 -m unittest discover src/tests
