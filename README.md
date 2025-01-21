@@ -1,5 +1,7 @@
 # Markdown Indexer
 
+![Build Status](https://github.com/cagatayuresin/markdown-indexer/actions/workflows/tests.yml/badge.svg) [![Quality Gate Status](https://sonarqube.cagatayuresin.com/api/project_badges/measure?project=cagatayuresin_markdown-indexer_AZSGohgaoWE6bsN4ROvT&metric=alert_status&token=sqb_c7267edf829b2231f7d6a5c515d284effba30be4)](https://sonarqube.cagatayuresin.com/dashboard?id=cagatayuresin_markdown-indexer_AZSGohgaoWE6bsN4ROvT) [![Coverage](https://sonarqube.cagatayuresin.com/api/project_badges/measure?project=cagatayuresin_markdown-indexer_AZSGohgaoWE6bsN4ROvT&metric=coverage&token=sqb_c7267edf829b2231f7d6a5c515d284effba30be4)](https://sonarqube.cagatayuresin.com/dashboard?id=cagatayuresin_markdown-indexer_AZSGohgaoWE6bsN4ROvT) ![License](https://img.shields.io/github/license/cagatayuresin/markdown-indexer.svg) ![Python Version](https://img.shields.io/badge/python-3.12.6-blue.svg)
+
 This repository contains a set of Python scripts and modules that analyze a Markdown file, extract its headings, automatically number them, and generate a navigable index. The index is then inserted into the final output file. This tool helps keep large documentation files organized and easy to navigate.
 
 ---
