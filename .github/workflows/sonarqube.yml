@@ -28,7 +28,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          coverage run -m unittest discover -s tests -p "*_test.py"  # Specify test folder and pattern
+          coverage run -m unittest discover -s src/tests -p "*_test.py"  # Specify test folder and pattern
           coverage report  # Display coverage report in the terminal
           coverage xml -o coverage.xml  # Generate the XML report (required for SonarQube integration)
 
