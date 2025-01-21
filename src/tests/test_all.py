@@ -10,9 +10,6 @@ import src.parse_markdown_headers
 import src.header_numarator
 import src.new_headers
 
-# IMPORTANT: patch must target the same location the code uses "open"
-import src.parse_markdown_headers
-
 
 class TestParseMarkdownHeaders(unittest.TestCase):
     def setUp(self):
@@ -75,13 +72,106 @@ class TestParseMarkdownHeaders(unittest.TestCase):
 
 
 class TestHeaderNumarator(unittest.TestCase):
-    # ... no change needed ...
-    pass
+    def setUp(self):
+        self.func = src.header_numarator.header_numarator
+
+    def test_no_headers(self):
+        result = self.func([])
+        self.assertEqual(result, [])
+
+    def test_level_1_only(self):
+        input_headers = [
+            {"header_level": 1, "header_text": "First", "line": 1},
+            {"header_level": 1, "header_text": "Second", "line": 2},
+        ]
+        output = self.func(input_headers)
+        self.assertEqual(output[0]["header_number"], "")
+        self.assertEqual(output[1]["header_number"], "")
+
+    def test_multi_level_headers(self):
+        input_headers = [
+            {"header_level": 1, "header_text": "Intro", "line": 1},
+            {"header_level": 2, "header_text": "Chapter 1", "line": 2},
+            {"header_level": 3, "header_text": "Section 1.1", "line": 3},
+            {"header_level": 2, "header_text": "Chapter 2", "line": 4},
+            {"header_level": 3, "header_text": "Section 2.1", "line": 5},
+            {"header_level": 4, "header_text": "Subsection 2.1.1", "line": 6},
+        ]
+        output = self.func(input_headers)
+        # H1 => ""
+        self.assertEqual(output[0]["header_number"], "")
+        # H2 => "1."
+        self.assertEqual(output[1]["header_number"], "1.")
+        # H3 => "1.1"
+        self.assertEqual(output[2]["header_number"], "1.1")
+        # Next H2 => "2."
+        self.assertEqual(output[3]["header_number"], "2.")
+        # Next H3 => "2.1"
+        self.assertEqual(output[4]["header_number"], "2.1")
+        # H4 => "2.1.1"
+        self.assertEqual(output[5]["header_number"], "2.1.1")
 
 
 class TestNewHeaders(unittest.TestCase):
-    # ... no change needed ...
-    pass
+    def setUp(self):
+        self.func = src.new_headers.new_headers
+
+    def test_h1_no_numbering(self):
+        headers = [
+            {
+                "header_level": 1,
+                "header_text": "Welcome",
+                "header_number": "",
+                "line": 1,
+            }
+        ]
+        result = self.func(headers)
+        self.assertEqual(result[0]["new_text"], "# Welcome")
+
+    def test_other_levels(self):
+        headers = [
+            {
+                "header_level": 2,
+                "header_text": "Chapter 1",
+                "header_number": "1.",
+                "line": 2,
+            },
+            {
+                "header_level": 3,
+                "header_text": "Section 1.1",
+                "header_number": "1.1",
+                "line": 3,
+            },
+        ]
+        result = self.func(headers)
+        self.assertEqual(result[0]["new_text"], "## 1. Chapter 1")
+        self.assertEqual(result[1]["new_text"], "### 1.1 Section 1.1")
+
+    def test_all_levels(self):
+        headers = [
+            {
+                "header_level": 4,
+                "header_text": "Deep",
+                "header_number": "1.2.1",
+                "line": 1,
+            },
+            {
+                "header_level": 5,
+                "header_text": "Deeper",
+                "header_number": "1.2.1.1",
+                "line": 2,
+            },
+            {
+                "header_level": 6,
+                "header_text": "Deepest",
+                "header_number": "1.2.1.1.1",
+                "line": 3,
+            },
+        ]
+        result = self.func(headers)
+        self.assertEqual(result[0]["new_text"], "#### 1.2.1 Deep")
+        self.assertEqual(result[1]["new_text"], "##### 1.2.1.1 Deeper")
+        self.assertEqual(result[2]["new_text"], "###### 1.2.1.1.1 Deepest")
 
 
 class TestCreateIndex(unittest.TestCase):
