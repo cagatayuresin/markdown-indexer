@@ -1,0 +1,46 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  sonarQube:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pytest pytest-cov
+
+      - name: Run Tests with Coverage (XML)
+        run: |
+          # Generate an XML coverage report for SonarQube
+          pytest --cov=src --cov-report=xml --cov-report=term-missing
+
+      - name: Download Sonar Scanner
+        run: |
+          # Example downloading and extracting sonar-scanner
+          wget -O sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+          unzip sonar-scanner.zip
+          mv sonar-scanner-4.8.0.2856-linux sonar-scanner
+          ls -l sonar-scanner
+
+      - name: SonarQube Scan
+        # We add the scanner to PATH so the `sonar-scanner` command is recognized
+        run: |
+          export PATH="$PATH:$(pwd)/sonar-scanner/bin"
+          sonar-scanner \
+            -Dsonar.host.url="https://sonarqube.cagatayuresin.com" \
+            -Dsonar.login="${{ secrets.SONARQUBE_TOKEN }}" \
+            -Dsonar.projectKey="myProjectKey" \
+            -Dsonar.python.coverage.reportPaths="coverage.xml"
