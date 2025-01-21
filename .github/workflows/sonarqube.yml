@@ -28,7 +28,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          python3 -m pytest --cov=markdown_indexer --cov-report=xml
+          python3 -m pytest --cov=src/markdown_indexer --cov-report=xml
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
