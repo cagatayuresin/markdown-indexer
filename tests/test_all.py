@@ -5,7 +5,7 @@ import sys
 import os
 
 # Local modules
-from src.create_index import create_index
+import src.create_index
 import src.parse_markdown_headers
 import src.header_numarator
 import src.new_headers
@@ -86,7 +86,7 @@ class TestNewHeaders(unittest.TestCase):
 
 class TestCreateIndex(unittest.TestCase):
     def setUp(self):
-        self.func = create_index
+        self.func = src.create_index.create_index
 
     def test_basic_index(self):
         """
