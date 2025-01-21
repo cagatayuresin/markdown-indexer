@@ -2,9 +2,9 @@ name: Python Tests
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ "main", "dev" ]
 
 jobs:
   tests:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.12.6"
 
       - name: Install dependencies
         run: |
@@ -26,4 +26,4 @@ jobs:
 
       - name: Run Tests with Coverage
         run: |
-          pytest --cov=src --cov-report=term-missing
+          python3 pytest --cov=src --cov-report=term-missing
